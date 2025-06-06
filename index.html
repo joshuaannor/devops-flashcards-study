@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevOps Flashcards</title>
+  <style>
+    body {
+      background: linear-gradient(to bottom right, #1e293b, #111827);
+      color: #fff;
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      max-width: 600px;
+      width: 90%;
+      background: white;
+      color: black;
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+    .card {
+      cursor: pointer;
+      width: 100%;
+      height: 300px;
+      border-radius: 12px;
+      background: #f3f4f6;
+      margin-bottom: 20px;
+      font-size: 18px;
+      perspective: 1000px;
+      overflow: hidden;
+      position: relative;
+    }
+    .card-inner {
+      width: 100%;
+      height: 100%;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+      position: relative;
+    }
+    .flipped {
+      transform: rotateY(180deg);
+    }
+    .card-front, .card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      overflow-y: auto;
+      box-sizing: border-box;
+    }
+    .card-back {
+      transform: rotateY(180deg);
+    }
+    button {
+      padding: 10px 16px;
+      font-size: 16px;
+      border: none;
+      background: #2563eb;
+      color: white;
+      border-radius: 10px;
+      cursor: pointer;
+      margin: 0 10px;
+    }
+    button:hover {
+      background: #1d4ed8;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card" onclick="flipCard()">
+      <div id="card-inner" class="card-inner">
+        <div class="card-front" id="card-front"></div>
+        <div class="card-back" id="card-back"></div>
+      </div>
+    </div>
+    <div>
+      <button onclick="prevCard()">Prev</button>
+      <button onclick="nextCard()">Next</button>
+    </div>
+  </div>
+  <script>
+    const flashcards = [
+      { q: "Tell me about yourself", a: "Hi, my name is Joshua Annor. I'm a computer science graduate from ODU. Over the past two years, I've had internships where I gained experience in DevOps and automation. At GE, I worked with CI/CD pipelines using Jenkins, Digital.ai Release, and Dynatrace. At Jacobs, I used FactoryTalk and Python to automate HMI and SCADA-related tasks. I also completed a Linux-based course where we did everything via SSH and the terminal. This role really stands out to me because it brings together everything I’ve worked on so far, and I’m excited to grow even more in DevOps." },
+      { q: "What did you do with Jenkins at GE?", a: "I worked on CI/CD pipelines using Jenkins, set up GitHub triggers, and integrated monitoring tools like Dynatrace. We also used Digital.ai Release to visualize the deployment process." },
+      { q: "Experience with Linux?", a: "I took a fully Linux-based course at ODU and used Linux regularly at both GE and Jacobs. Tasks were completed and submitted via the terminal using SSH." },
+      { q: "Experience with virtual machines?", a: "Yes, I used VMs to run Jenkins at GE and test SCADA tools at Jacobs. We often logged into VMs named after Spider-Man villains like Electro." },
+      { q: "Do you know C++?", a: "Yes, most of my college projects were in C++. I built programs using object-oriented programming and file I/O." },
+      { q: "Scripting languages used?", a: "I used Python and PowerShell for automation — Python for release tools and PowerShell for scripting tasks like auto-restarts based on alerts." },
+      { q: "Worked with legacy systems?", a: "Yes, at Jacobs I helped modernize SCADA tag names from legacy formats to Rockwell naming standards using Excel and Power BI." },
+      { q: "What interests you about this company?", a: "I like how it blends modern DevOps practices with mission-critical support for the Navy. It aligns with what I’ve worked on and what I want to grow in." },
+      { q: "Handling CI/CD failures?", a: "I would check the logs, isolate the failure, fix it locally, test it again, and communicate with the team before re-running the pipeline." },
+      { q: "Version control experience?", a: "Used Git and GitHub throughout school and at both internships. Familiar with branching, merging, pull requests, and GitHub Actions." },
+      { q: "Project you’re proud of?", a: "At GE, I integrated Dynatrace with Digital.ai to create real-time alerts tied to deployment stages." },
+      { q: "Experience with YAML/config files?", a: "I wrote YAML templates for XL CLI automation and created configuration files for Jenkins pipelines." },
+      { q: "Technical skill to improve?", a: "I want to go deeper into containerization and orchestration tools like Docker and Kubernetes." }
+    ];
+
+    let index = 0;
+    const front = document.getElementById('card-front');
+    const back = document.getElementById('card-back');
+    const cardInner = document.getElementById('card-inner');
+
+    function updateCard() {
+      front.textContent = flashcards[index].q;
+      back.textContent = flashcards[index].a;
+      cardInner.classList.remove('flipped');
+    }
+
+    function flipCard() {
+      cardInner.classList.toggle('flipped');
+    }
+
+    function nextCard() {
+      index = (index + 1) % flashcards.length;
+      updateCard();
+    }
+
+    function prevCard() {
+      index = (index - 1 + flashcards.length) % flashcards.length;
+      updateCard();
+    }
+
+    updateCard();
+  </script>
+</body>
+</html>
