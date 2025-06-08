@@ -27,19 +27,19 @@
     }
     .card {
       cursor: pointer;
-      min-height: 200px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
+      width: 100%;
+      height: 300px;
       border-radius: 12px;
       background: #f3f4f6;
       margin-bottom: 20px;
       font-size: 18px;
       perspective: 1000px;
+      overflow: hidden;
+      position: relative;
     }
     .card-inner {
       width: 100%;
+      height: 100%;
       transition: transform 0.6s;
       transform-style: preserve-3d;
       position: relative;
@@ -50,7 +50,15 @@
     .card-front, .card-back {
       position: absolute;
       width: 100%;
+      height: 100%;
       backface-visibility: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      overflow-y: auto;
+      box-sizing: border-box;
+      text-align: left;
     }
     .card-back {
       transform: rotateY(180deg);
@@ -64,6 +72,8 @@
       border-radius: 10px;
       cursor: pointer;
       margin: 0 10px;
+      z-index: 10;
+      position: relative;
     }
     button:hover {
       background: #1d4ed8;
@@ -85,7 +95,7 @@
   </div>
   <script>
     const flashcards = [
-      { q: "Tell me about yourself", a: "Hi, my name is Joshua Annor. I’m a Computer Science graduate from ODU. Over the past two years, I gained experience in internships focused on DevOps and automation. I’ve worked with tools like Jenkins, Dynatrace, FactoryTalk, Git, and virtual machines. Most of my school projects were done in C++ and submitted through SSH on Linux servers. Now, I’m looking for an opportunity to bring all those skills together and grow my career in DevOps." },
+      { q: "Tell me about yourself", a: "Hi, I’m Joshua Annor. I recently graduated in Computer Science from ODU. Over the past two years, I’ve had two internships — one at GE, where I worked on CI/CD pipelines using Jenkins and Dynatrace, and another at Jacobs, where I used FactoryTalk and Python to automate SCADA-related data tasks. In school, most of my projects were in C++, and I also took a fully Linux-based course where everything was done through the terminal via SSH. Now I’m looking for an opportunity where I can put all those skills together and keep growing in DevOps." },
       { q: "What did you do with Jenkins at GE?", a: "I worked on CI/CD pipelines using Jenkins, set up GitHub triggers, and integrated monitoring tools like Dynatrace. We also used Digital.ai Release to visualize the deployment process." },
       { q: "Experience with Linux?", a: "I took a fully Linux-based course at ODU and used Linux regularly at both GE and Jacobs. Tasks were completed and submitted via the terminal using SSH." },
       { q: "Experience with virtual machines?", a: "Yes, I used VMs to run Jenkins at GE and test SCADA tools at Jacobs. We often logged into VMs named after Spider-Man villains like Electro." },
@@ -95,10 +105,10 @@
       { q: "What interests you about this company?", a: "I like how it blends modern DevOps practices with mission-critical support for the Navy. It aligns with what I’ve worked on and what I want to grow in." },
       { q: "Handling CI/CD failures?", a: "I would check the logs, isolate the failure, fix it locally, test it again, and communicate with the team before re-running the pipeline." },
       { q: "Version control experience?", a: "Used Git and GitHub throughout school and at both internships. Familiar with branching, merging, pull requests, and GitHub Actions." },
-      { q: "Project you’re proud of?", a: "My proudest project was a YAML parser script I wrote during my internship. It was generic enough to still be in use two years later and has helped reduce manual work and save money." },
-      { q: "PowerShell scripting example?", a: "I wrote a script that created a dummy .txt file taking up 95% of the C: drive space. Its modified date was set to two weeks prior so Dynatrace would detect it and automatically run the cleanup process, including clearing the trash bin." },
+      { q: "Project you’re proud of?", a: "My proudest project was a YAML parser script I wrote at GE. I made it generic enough to still be used two years later, and it's saved time and cost for the team." },
       { q: "Experience with YAML/config files?", a: "I wrote YAML templates for XL CLI automation and created configuration files for Jenkins pipelines." },
-      { q: "Technical skill to improve?", a: "I want to go deeper into containerization and orchestration tools like Docker and Kubernetes." }
+      { q: "Technical skill to improve?", a: "I want to go deeper into containerization and orchestration tools like Docker and Kubernetes." },
+      { q: "What’s a technical script you wrote in PowerShell?", a: "I wrote a PowerShell script that generated a .txt file large enough to take up 95% of the C: drive space, then changed its date to two weeks prior. This triggered a Dynatrace alert, which started the disk cleanup process and cleared the Recycle Bin. It helped test and automate the response flow." }
     ];
 
     let index = 0;
